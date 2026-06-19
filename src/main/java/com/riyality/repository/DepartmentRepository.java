@@ -1,5 +1,5 @@
 package com.riyality.repository;
 
-public class DepartmentRepository {
+public interface DepartmentRepository {
 
 }

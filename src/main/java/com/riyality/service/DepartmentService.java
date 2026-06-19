@@ -1,5 +1,5 @@
 package com.riyality.service;
 
-public class DepartmentService {
+public interface DepartmentService {
 
 }
