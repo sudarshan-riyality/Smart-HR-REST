@@ -4,42 +4,39 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.riyality.dto.employeeRequest;
 import com.riyality.dto.employeeResponse;
+import com.riyality.entity.Department;
 import com.riyality.entity.Employee;
 import com.riyality.mapper.EmployeeMapper;
+import com.riyality.repository.DepartmentRepository;
 import com.riyality.repository.EmployeeRepository;
 import com.riyality.service.EmployeeService;
 
 import lombok.RequiredArgsConstructor;
-@RequiredArgsConstructor
+
 @Service
+@RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
 
-    
     private final EmployeeRepository employeeRepository;
+    private final DepartmentRepository departmentRepository;
 
-    //---------------------save Employee-----------------------------------------------
-    
-    
     @Override
     public employeeResponse saveEmployee(employeeRequest request) {
 
         Employee employee = EmployeeMapper.toEntity(request);
 
-        employee.setDepartment(request.getDepartment());
+        Department dept = departmentRepository.findById(request.getDepartmentId())
+                .orElseThrow(() -> new RuntimeException("Department not found"));
 
-        Employee savedEmployee = employeeRepository.save(employee);
+        employee.setDepartment(dept);
 
-        return EmployeeMapper.toResponse(savedEmployee);
+        return EmployeeMapper.toResponse(employeeRepository.save(employee));
     }
-    
 
-    //-------------------Get By Id-------------------------------------------------------
-    
     @Override
     public employeeResponse employeeGetById(UUID id) {
 
@@ -49,8 +46,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         return EmployeeMapper.toResponse(employee);
     }
 
-    //------------------------Get All Employee------------------------------------------
-    
     @Override
     public List<employeeResponse> getAllEmployees() {
 
@@ -60,9 +55,6 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .collect(Collectors.toList());
     }
 
-    
-    //------------------------Update Employee--------------------------------------------
-    
     @Override
     public employeeResponse updateEmployee(UUID id, employeeRequest request) {
 
@@ -74,16 +66,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setEmail(request.getEmail());
         employee.setPhoneNumber(request.getPhoneNumber());
         employee.setJoiningDate(request.getJoiningDate());
-        employee.setDepartment(request.getDepartment());
 
-        Employee updatedEmployee = employeeRepository.save(employee);
+        Department dept = departmentRepository.findById(request.getDepartmentId())
+                .orElseThrow(() -> new RuntimeException("Department not found"));
 
-        return EmployeeMapper.toResponse(updatedEmployee);
+        employee.setDepartment(dept);
+
+        return EmployeeMapper.toResponse(employeeRepository.save(employee));
     }
 
-    
-    //--------------------------Delete Employee------------------------------------------
-    
     @Override
     public void deleteEmployee(UUID id) {
 

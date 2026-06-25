@@ -5,30 +5,35 @@ import com.riyality.dto.employeeResponse;
 import com.riyality.entity.Employee;
 
 public class EmployeeMapper {
-	 public static Employee toEntity(employeeRequest request) {
 
-	        Employee employee = new Employee();
+    public static Employee toEntity(employeeRequest request) {
 
-	        employee.setEmployeeCode(request.getEmployeeCode());
-	        employee.setEmployeeName(request.getEmployeeName());
-	        employee.setEmail(request.getEmail());
-	        employee.setPhoneNumber(request.getPhoneNumber());
-	        employee.setJoiningDate(request.getJoiningDate());
+        Employee emp = new Employee();
 
-	        return employee;
-	    }
+        emp.setEmployeeCode(request.getEmployeeCode());
+        emp.setEmployeeName(request.getEmployeeName());
+        emp.setEmail(request.getEmail());
+        emp.setPhoneNumber(request.getPhoneNumber());
+        emp.setJoiningDate(request.getJoiningDate());
 
-	    public static employeeResponse toResponse(Employee employee) {
+        return emp;
+    }
 
-	        employeeResponse response = new employeeResponse();
+    public static employeeResponse toResponse(Employee employee) {
 
-	        response.setEmployeeId(employee.getEmployeeId());
-	        response.setEmployeeCode(employee.getEmployeeCode());
-	        response.setEmployeeName(employee.getEmployeeName());
-	        response.setEmail(employee.getEmail());
-	        response.setPhoneNumber(employee.getPhoneNumber());
-	        response.setJoiningDate(employee.getJoiningDate());
+        employeeResponse res = new employeeResponse();
 
-	        return response;
-	    }
+        res.setEmployeeId(employee.getEmployeeId());
+        res.setEmployeeCode(employee.getEmployeeCode());
+        res.setEmployeeName(employee.getEmployeeName());
+        res.setEmail(employee.getEmail());
+        res.setPhoneNumber(employee.getPhoneNumber());
+        res.setJoiningDate(employee.getJoiningDate());
+
+        if (employee.getDepartment() != null) {
+            res.setDepartmentId(employee.getDepartment().getDepartmentId());
+        }
+
+        return res;
+    }
 }

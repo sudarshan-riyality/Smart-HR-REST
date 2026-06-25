@@ -1,5 +1,9 @@
 package com.riyality.repository;
 
-public interface DepartmentRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.riyality.entity.Department;
+
+public interface DepartmentRepository extends JpaRepository<Department,Long>{
 
 }

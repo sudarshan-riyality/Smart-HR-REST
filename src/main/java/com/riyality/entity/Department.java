@@ -1,62 +1,50 @@
 package com.riyality.entity;
 
 import java.util.List;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name="Department")
+@Table(name = "department")
 public class Department {
 
-@Id
-@GeneratedValue(strategy=GenerationType.IDENTITY)
-private Long Department;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long departmentId;
 
-private String departmentName;
+    private String departmentName;
 
-@OneToMany(mappedBy="department")
-private List<Employee> Employees;
+    @OneToMany(mappedBy = "department")
+    private List<Employee> employees;
 
-public Department() {
-	
-}
+    public Department() {}
 
+    public Department(Long departmentId, String departmentName, List<Employee> employees) {
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
+        this.employees = employees;
+    }
 
-public Department(Long department, String departmentName, List<Employee> employees) {
-	super();
-	Department = department;
-	this.departmentName = departmentName;
-	Employees = employees;
-}
+    public Long getDepartmentId() {
+        return departmentId;
+    }
 
-public Long getDepartment() {
-	return Department;
-}
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+    }
 
-public void setDepartment(Long department) {
-	Department = department;
-}
+    public String getDepartmentName() {
+        return departmentName;
+    }
 
-public String getDepartmentName() {
-	return departmentName;
-}
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
 
-public void setDepartmentName(String departmentName) {
-	this.departmentName = departmentName;
-}
+    public List<Employee> getEmployees() {
+        return employees;
+    }
 
-public List<Employee> getEmployees() {
-	return Employees;
-}
-
-public void setEmployees(List<Employee> employees) {
-	Employees = employees;
-}
-
-
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
 }

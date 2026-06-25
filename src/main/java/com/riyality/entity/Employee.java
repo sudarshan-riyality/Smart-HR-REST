@@ -3,112 +3,86 @@ package com.riyality.entity;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import jakarta.persistence.*;
 
 @Entity
-@Table(name="employee")
+@Table(name = "employee")
 public class Employee {
 
- @Id
- @GeneratedValue(strategy=GenerationType.UUID)
- private UUID employeeId;
- 
- @Column(name="employee_code")
- private String employeeCode;
- 
- @Column(name="employee_name")
- private String employeeName;
- 
- @Column(name="email")
- private String email;
- 
- @Column(name="phone_number")
- private String phoneNumber;
- 
- @Column(name="joining_date")
- private LocalDate joiningDate;
- 
-@ManyToOne
-@JoinColumn(name="department_id")
-private Department department;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(length = 36)
+    private UUID employeeId;
 
-public Employee() {
-}
-public Employee(UUID employeeId, String employeeCode, String employeeName, String email, String phoneNumber,
-		LocalDate joiningDate, Department department) {
-	super();
-	this.employeeId = employeeId;
-	this.employeeCode = employeeCode;
-	this.employeeName = employeeName;
-	this.email = email;
-	this.phoneNumber = phoneNumber;
-	this.joiningDate = joiningDate;
-	this.department = department;
-}
+    private String employeeCode;
+    private String employeeName;
+    private String email;
+    private String phoneNumber;
+    private LocalDate joiningDate;
 
-public UUID getEmployeeId() {
-	return employeeId;
-}
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
-public void setEmployeeId(UUID employeeId) {
-	this.employeeId = employeeId;
-}
+    public Employee() {}
 
-public String getEmployeeCode() {
-	return employeeCode;
-}
+    public UUID getEmployeeId() {
+        return employeeId;
+    }
 
-public void setEmployeeCode(String employeeCode) {
-	this.employeeCode = employeeCode;
-}
+    public void setEmployeeId(UUID employeeId) {
+        this.employeeId = employeeId;
+    }
 
-public String getEmployeeName() {
-	return employeeName;
-}
+    public String getEmployeeCode() {
+        return employeeCode;
+    }
 
-public void setEmployeeName(String employeeName) {
-	this.employeeName = employeeName;
-}
+    public void setEmployeeCode(String employeeCode) {
+        this.employeeCode = employeeCode;
+    }
 
-public String getEmail() {
-	return email;
-}
+    public String getEmployeeName() {
+        return employeeName;
+    }
 
-public void setEmail(String email) {
-	this.email = email;
-}
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
 
-public String getPhoneNumber() {
-	return phoneNumber;
-}
+    public String getEmail() {
+        return email;
+    }
 
-public void setPhoneNumber(String phoneNumber) {
-	this.phoneNumber = phoneNumber;
-}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-public LocalDate getJoiningDate() {
-	return joiningDate;
-}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-public void setJoiningDate(LocalDate joiningDate) {
-	this.joiningDate = joiningDate;
-}
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-public Department getDepartment() {
-    return department;
-}
+    public LocalDate getJoiningDate() {
+        return joiningDate;
+    }
 
-public void setDepartment(Department department) {
-    this.department = department;
+    public void setJoiningDate(LocalDate joiningDate) {
+        this.joiningDate = joiningDate;
+    }
 
-}
- 
- 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 }
