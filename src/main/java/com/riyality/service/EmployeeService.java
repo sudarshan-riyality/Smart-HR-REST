@@ -3,18 +3,18 @@ package com.riyality.service;
 import java.util.List;
 import java.util.UUID;
 
-import com.riyality.dto.employeeRequest;
-import com.riyality.dto.employeeResponse;
+import com.riyality.dto.EmployeeRequest;
+import com.riyality.dto.EmployeeResponse;
 
 public interface EmployeeService {
 
-    employeeResponse saveEmployee(employeeRequest request);
+    EmployeeResponse saveEmployee(EmployeeRequest request);
 
-    employeeResponse employeeGetById(UUID id);
+    EmployeeResponse employeeGetById(UUID id);
 
-    List<employeeResponse> getAllEmployees();
+    List<EmployeeResponse> getAllEmployees();
 
-    employeeResponse updateEmployee(UUID id, employeeRequest request);
+    EmployeeResponse updateEmployee(UUID id, EmployeeRequest request);
 
     void deleteEmployee(UUID id);
 

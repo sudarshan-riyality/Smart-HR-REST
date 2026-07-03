@@ -1,24 +1,23 @@
 package com.riyality.service;
 
 import java.util.List;
+import java.util.UUID;
 
-import com.riyality.dto.leaveRequest;
-import com.riyality.dto.leaveResponse;
+import com.riyality.dto.LeaveRequestRequest;
+import com.riyality.dto.LeaveRequestResponse;
 
 public interface LeaveRequestService {
 
-   
-    leaveResponse applyLeave(leaveRequest request);
+    LeaveRequestResponse applyLeave(
+            LeaveRequestRequest request);
 
+    LeaveRequestResponse approveLeave(
+            Long leaveId);
 
-    List<leaveResponse> getAllLeaves();
+    LeaveRequestResponse rejectLeave(
+            Long leaveId);
 
-   
-    leaveResponse getLeaveById(Long id);
+    List<LeaveRequestResponse> getEmployeeLeaves(
+            UUID employeeId);
 
-  
-    leaveResponse updateLeave(Long id, leaveRequest request);
-
-  
-    void deleteLeave(Long id);
 }

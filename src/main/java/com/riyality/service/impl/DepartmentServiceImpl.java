@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.riyality.dto.departmentRequest;
-import com.riyality.dto.departmentResponse;
+import com.riyality.dto.DepartmentRequest;
+import com.riyality.dto.DepartmentResponse;
 import com.riyality.entity.Department;
 import com.riyality.mapper.DepartmentMapper;
 import com.riyality.repository.DepartmentRepository;
@@ -22,7 +22,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public departmentResponse saveDepartment(departmentRequest request) {
+    public DepartmentResponse saveDepartment(DepartmentRequest request) {
 
         Department dept = DepartmentMapper.toEntity(request);
 
@@ -32,7 +32,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public departmentResponse getDepartmentById(Long id) {
+    public DepartmentResponse getDepartmentById(Long id) {
 
         Department dept = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Department not found"));
@@ -41,7 +41,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<departmentResponse> getAllDepartments() {
+    public List<DepartmentResponse> getAllDepartments() {
 
         return repository.findAll()
                 .stream()
@@ -50,7 +50,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public departmentResponse updateDepartment(Long id, departmentRequest request) {
+    public DepartmentResponse updateDepartment(Long id, DepartmentRequest request) {
 
         Department dept = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Department not found"));

@@ -1,43 +1,37 @@
 package com.riyality.mapper;
 
-import com.riyality.dto.leaveRequest;
-import com.riyality.dto.leaveResponse;
-import com.riyality.entity.Employee;
+import com.riyality.dto.LeaveRequestResponse;
 import com.riyality.entity.LeaveRequest;
 
 public class LeaveRequestMapper {
 
-    public static LeaveRequest toEntity(leaveRequest request, Employee employee) {
+    public static LeaveRequestResponse toResponse(
+            LeaveRequest leave) {
 
-        LeaveRequest lr = new LeaveRequest();
+        LeaveRequestResponse response =
+                new LeaveRequestResponse();
 
-        lr.setFromDate(request.getFromDate());
-        lr.setToDate(request.getToDate());
-        lr.setReason(request.getReason());
-        lr.setStatus(request.getStatus());
+        response.setLeaveRequestId(
+                leave.getLeaveRequestId());
 
-        lr.setEmployee(employee);
+        response.setEmployeeId(
+                leave.getEmployee().getEmployeeId());
 
-        return lr;
+        response.setEmployeeName(
+                leave.getEmployee().getEmployeeName());
+
+        response.setFromDate(
+                leave.getFromDate());
+
+        response.setToDate(
+                leave.getToDate());
+
+        response.setReason(
+                leave.getReason());
+
+        response.setStatus(
+                leave.getStatus());
+
+        return response;
     }
-
- 
-
-        public static leaveResponse toResponse(LeaveRequest lr) {
-
-            leaveResponse res = new leaveResponse();
-
-            res.setLeaveRequestId(lr.getLeaveRequestId());
-
-            if (lr.getEmployee() != null) {
-                res.setEmployeeId(lr.getEmployee().getEmployeeId());
-            }
-
-            res.setFromDate(lr.getFromDate());
-            res.setToDate(lr.getToDate());
-            res.setReason(lr.getReason());
-            res.setStatus(lr.getStatus());
-
-            return res;
-        }
-    }
+}

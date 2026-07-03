@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.riyality.dto.departmentRequest;
-import com.riyality.dto.departmentResponse;
+import com.riyality.dto.DepartmentRequest;
+import com.riyality.dto.DepartmentResponse;
 import com.riyality.service.DepartmentService;
 
 @RestController
@@ -20,24 +20,24 @@ public class DepartmentController {
     }
 
     @PostMapping
-    public ResponseEntity<departmentResponse> create(@RequestBody departmentRequest request) {
+    public ResponseEntity<DepartmentResponse> create(@RequestBody DepartmentRequest request) {
         return ResponseEntity.ok(service.saveDepartment(request));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<departmentResponse> getById(@PathVariable Long id) {
+    public ResponseEntity<DepartmentResponse> getById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getDepartmentById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<departmentResponse>> getAll() {
+    public ResponseEntity<List<DepartmentResponse>> getAll() {
         return ResponseEntity.ok(service.getAllDepartments());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<departmentResponse> update(
+    public ResponseEntity<DepartmentResponse> update(
             @PathVariable Long id,
-            @RequestBody departmentRequest request) {
+            @RequestBody DepartmentRequest request) {
         return ResponseEntity.ok(service.updateDepartment(id, request));
     }
 

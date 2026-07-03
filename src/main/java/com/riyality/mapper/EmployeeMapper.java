@@ -1,12 +1,12 @@
 package com.riyality.mapper;
 
-import com.riyality.dto.employeeRequest;
-import com.riyality.dto.employeeResponse;
+import com.riyality.dto.EmployeeRequest;
+import com.riyality.dto.EmployeeResponse;
 import com.riyality.entity.Employee;
 
 public class EmployeeMapper {
 
-    public static Employee toEntity(employeeRequest request) {
+    public static Employee toEntity(EmployeeRequest request) {
 
         Employee emp = new Employee();
 
@@ -19,9 +19,9 @@ public class EmployeeMapper {
         return emp;
     }
 
-    public static employeeResponse toResponse(Employee employee) {
+    public static EmployeeResponse toResponse(Employee employee) {
 
-        employeeResponse res = new employeeResponse();
+        EmployeeResponse res = new EmployeeResponse();
 
         res.setEmployeeId(employee.getEmployeeId());
         res.setEmployeeCode(employee.getEmployeeCode());

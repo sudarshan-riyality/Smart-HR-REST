@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class departmentResponse {
+public class DepartmentResponse {
 
 	private Long DepartmentId;
 	

@@ -1,18 +1,18 @@
 package com.riyality.service;
 
 import java.util.List;
-import com.riyality.dto.departmentRequest;
-import com.riyality.dto.departmentResponse;
+import com.riyality.dto.DepartmentRequest;
+import com.riyality.dto.DepartmentResponse;
 
 public interface DepartmentService {
 
-    departmentResponse saveDepartment(departmentRequest request);
+    DepartmentResponse saveDepartment(DepartmentRequest request);
 
-    departmentResponse getDepartmentById(Long id);
+    DepartmentResponse getDepartmentById(Long id);
 
-    List<departmentResponse> getAllDepartments();
+    List<DepartmentResponse> getAllDepartments();
 
-    departmentResponse updateDepartment(Long id, departmentRequest request);
+    DepartmentResponse updateDepartment(Long id, DepartmentRequest request);
 
     void deleteDepartment(Long id);
 }

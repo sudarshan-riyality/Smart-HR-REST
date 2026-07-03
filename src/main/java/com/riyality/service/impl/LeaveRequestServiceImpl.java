@@ -1,84 +1,95 @@
 package com.riyality.service.impl;
 
-import com.riyality.dto.leaveRequest;
-import com.riyality.dto.leaveResponse;
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.stereotype.Service;
+
+import com.riyality.dto.LeaveRequestRequest;
+import com.riyality.dto.LeaveRequestResponse;
 import com.riyality.entity.Employee;
 import com.riyality.entity.LeaveRequest;
+import com.riyality.entity.LeaveStatus;
 import com.riyality.mapper.LeaveRequestMapper;
 import com.riyality.repository.EmployeeRepository;
 import com.riyality.repository.LeaveRequestRepository;
 import com.riyality.service.LeaveRequestService;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class LeaveRequestServiceImpl implements LeaveRequestService {
 
-    private final LeaveRequestRepository leaveRepo;
-    private final EmployeeRepository empRepo;
+    private final LeaveRequestRepository leaveRepository;
+    private final EmployeeRepository employeeRepository;
 
-    public LeaveRequestServiceImpl(LeaveRequestRepository leaveRepo,
-                                   EmployeeRepository empRepo) {
-        this.leaveRepo = leaveRepo;
-        this.empRepo = empRepo;
+    public LeaveRequestServiceImpl(
+            LeaveRequestRepository leaveRepository,
+            EmployeeRepository employeeRepository) {
+
+        this.leaveRepository = leaveRepository;
+        this.employeeRepository = employeeRepository;
     }
 
     @Override
-    public leaveResponse applyLeave(leaveRequest request) {
+    public LeaveRequestResponse applyLeave(
+            LeaveRequestRequest request) {
 
-        Employee emp = empRepo.findById(request.getEmployeeId())
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
+        Employee employee =
+                employeeRepository.findById(
+                        request.getEmployeeId())
+                .orElseThrow();
 
-        LeaveRequest lr = LeaveRequestMapper.toEntity(request, emp);
+        LeaveRequest leave =
+                new LeaveRequest();
 
-        return LeaveRequestMapper.toResponse(leaveRepo.save(lr));
-    }
-
-    @Override
-    public List<leaveResponse> getAllLeaves() {
-
-        return leaveRepo.findAll()
-                .stream()
-                .map(LeaveRequestMapper::toResponse)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public leaveResponse getLeaveById(Long id) {
-
-        LeaveRequest leave = leaveRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Leave Request not found"));
-
-        return LeaveRequestMapper.toResponse(leave);
-    }
-
-    @Override
-    public leaveResponse updateLeave(Long id, leaveRequest request) {
-
-        LeaveRequest leave = leaveRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Leave Request not found"));
-
-        Employee emp = empRepo.findById(request.getEmployeeId())
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
-
+        leave.setEmployee(employee);
         leave.setFromDate(request.getFromDate());
         leave.setToDate(request.getToDate());
         leave.setReason(request.getReason());
-        leave.setStatus(request.getStatus());
-        leave.setEmployee(emp);
+
+        leave.setStatus(
+                LeaveStatus.PENDING);
 
         return LeaveRequestMapper.toResponse(
-                leaveRepo.save(leave));
+                leaveRepository.save(leave));
     }
 
     @Override
-    public void deleteLeave(Long id) {
+    public LeaveRequestResponse approveLeave(
+            Long leaveId) {
 
-        LeaveRequest leave = leaveRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Leave Request not found"));
+        LeaveRequest leave =
+                leaveRepository.findById(leaveId)
+                .orElseThrow();
 
-        leaveRepo.delete(leave);
+        leave.setStatus(
+                LeaveStatus.APPROVED);
+
+        return LeaveRequestMapper.toResponse(
+                leaveRepository.save(leave));
+    }
+
+    @Override
+    public LeaveRequestResponse rejectLeave(
+           Long leaveId) {
+
+        LeaveRequest leave =
+                leaveRepository.findById(leaveId)
+                .orElseThrow();
+
+        leave.setStatus(
+                LeaveStatus.REJECTED);
+
+        return LeaveRequestMapper.toResponse(
+                leaveRepository.save(leave));
+    }
+
+    @Override
+    public List<LeaveRequestResponse>
+    getEmployeeLeaves(UUID employeeId) {
+        return leaveRepository
+                .findByEmployeeEmployeeId(employeeId)
+                .stream()
+                .map(LeaveRequestMapper::toResponse)
+                .toList();
     }
 }

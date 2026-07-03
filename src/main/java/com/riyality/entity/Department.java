@@ -2,6 +2,7 @@ package com.riyality.entity;
 
 import java.util.List;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "department")
@@ -11,6 +12,7 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long departmentId;
 
+   
     private String departmentName;
 
     @OneToMany(mappedBy = "department")

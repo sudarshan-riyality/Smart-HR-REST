@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.riyality.dto.employeeRequest;
-import com.riyality.dto.employeeResponse;
+import com.riyality.dto.EmployeeRequest;
+import com.riyality.dto.EmployeeResponse;
 import com.riyality.entity.Department;
 import com.riyality.entity.Employee;
 import com.riyality.mapper.EmployeeMapper;
@@ -25,7 +25,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final DepartmentRepository departmentRepository;
 
     @Override
-    public employeeResponse saveEmployee(employeeRequest request) {
+    public EmployeeResponse saveEmployee(EmployeeRequest request) {
 
         Employee employee = EmployeeMapper.toEntity(request);
 
@@ -38,7 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public employeeResponse employeeGetById(UUID id) {
+    public EmployeeResponse employeeGetById(UUID id) {
 
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Employee Not Found"));
@@ -47,7 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<employeeResponse> getAllEmployees() {
+    public List<EmployeeResponse> getAllEmployees() {
 
         return employeeRepository.findAll()
                 .stream()
@@ -56,7 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public employeeResponse updateEmployee(UUID id, employeeRequest request) {
+    public EmployeeResponse updateEmployee(UUID id, EmployeeRequest request) {
 
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Employee Not Found"));

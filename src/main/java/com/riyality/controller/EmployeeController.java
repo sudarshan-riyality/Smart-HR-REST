@@ -13,15 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.riyality.dto.employeeRequest;
-import com.riyality.dto.employeeResponse;
+import com.riyality.dto.EmployeeRequest;
+import com.riyality.dto.EmployeeResponse;
 import com.riyality.service.EmployeeService;
 
 import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RestController
 
-//------------------------------------------Save Employee-------------------------------------------------
 
 @RequestMapping("/employee")
 public class EmployeeController {
@@ -30,36 +29,32 @@ public class EmployeeController {
     private final EmployeeService service;
 
     @PostMapping
-    public employeeResponse saveEmployee(@RequestBody employeeRequest employee) {
+    public EmployeeResponse saveEmployee(@RequestBody EmployeeRequest employee) {
         return service.saveEmployee(employee);
     }
 
-//-------------------------------------Get By Id -----------------------------------------------------------
     
     @GetMapping("/{id}")
-    public employeeResponse getEmployeeById(@PathVariable UUID id) {
+    public EmployeeResponse getEmployeeById(@PathVariable UUID id) {
         return service.employeeGetById(id);
     }
 
     
-//---------------------------------Get All Employee---------------------------------------------------------    
     
     @GetMapping
-    public List<employeeResponse> getAllEmployees() {
+    public List<EmployeeResponse> getAllEmployees() {
         return service.getAllEmployees();
     }
 
-//--------------------------------Update Employee-----------------------------------------------------------    
     
     @PutMapping("/{id}")
-    public employeeResponse updateEmployee(
+    public EmployeeResponse updateEmployee(
             @PathVariable UUID id,
-            @RequestBody employeeRequest request) {
+            @RequestBody EmployeeRequest request) {
 
         return service.updateEmployee(id, request);
     }
 
-//-------------------------------------Delete Employee------------------------------------------------------
     
     
     @DeleteMapping("/{id}")

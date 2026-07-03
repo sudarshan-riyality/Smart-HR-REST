@@ -1,13 +1,15 @@
 package com.riyality.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class departmentRequest {
+public class DepartmentRequest {
     
-	//private Long Department;
 	
+	
+	 @NotBlank
 	private String departmentName;
 }

@@ -10,11 +10,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class leaveResponse {
+public class LeaveRequestResponse {
 
 	  private Long leaveRequestId;
 	  
 	   private UUID employeeId;
+	   private String employeeName;
 		
 	   private LocalDate fromDate;
 	  

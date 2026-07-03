@@ -1,67 +1,48 @@
 package com.riyality.controller;
 
 import java.util.List;
+import java.util.UUID;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.riyality.dto.leaveRequest;
-import com.riyality.dto.leaveResponse;
+import com.riyality.dto.LeaveRequestRequest;
+import com.riyality.dto.LeaveRequestResponse;
 import com.riyality.service.LeaveRequestService;
 
 @RestController
-@RequestMapping("/leave")
+@RequestMapping("/api/leaves")
 public class LeaveRequestController {
 
-    private final LeaveRequestService leaveRequestService;
+    private final LeaveRequestService leaveService;
 
-    public LeaveRequestController(LeaveRequestService leaveRequestService) {
-        this.leaveRequestService = leaveRequestService;
+    public LeaveRequestController(
+            LeaveRequestService leaveService) {
+
+        this.leaveService = leaveService;
     }
 
-    // Add Leave
-    @PostMapping
-    public ResponseEntity<leaveResponse> applyLeave(
-            @RequestBody leaveRequest request) {
+    @PostMapping("/apply")
+    public LeaveRequestResponse applyLeave(
+            @RequestBody LeaveRequestRequest request) {
 
-        return ResponseEntity.ok(
-                leaveRequestService.applyLeave(request));
+        return leaveService.applyLeave(request);
+    }
+    @PutMapping("/{id}/approve")
+    public LeaveRequestResponse approveLeave(@PathVariable Long id) {
+        return leaveService.approveLeave(id);
     }
 
-    // View All Leaves
-    @GetMapping
-    public ResponseEntity<List<leaveResponse>> getAllLeaves() {
-
-        return ResponseEntity.ok(
-                leaveRequestService.getAllLeaves());
+    @PutMapping("/{id}/reject")
+    public LeaveRequestResponse rejectLeave(@PathVariable Long id) {
+        return leaveService.rejectLeave(id);
     }
 
-    // View Leave By Id
-    @GetMapping("/{id}")
-    public ResponseEntity<leaveResponse> getLeaveById(
-            @PathVariable Long id) {
+    @GetMapping("/employee/{employeeId}")
+    public List<LeaveRequestResponse>
+    getEmployeeLeaves(
+            @PathVariable UUID employeeId) {
 
-        return ResponseEntity.ok(
-                leaveRequestService.getLeaveById(id));
-    }
-
-    // Update Leave
-    @PutMapping("/{id}")
-    public ResponseEntity<leaveResponse> updateLeave(
-            @PathVariable Long id,
-            @RequestBody leaveRequest request) {
-
-        return ResponseEntity.ok(
-                leaveRequestService.updateLeave(id, request));
-    }
-
-    // Delete Leave
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteLeave(
-            @PathVariable Long id) {
-
-        leaveRequestService.deleteLeave(id);
-
-        return ResponseEntity.ok("Leave Deleted Successfully");
+        return leaveService
+                .getEmployeeLeaves(employeeId);
     }
 }

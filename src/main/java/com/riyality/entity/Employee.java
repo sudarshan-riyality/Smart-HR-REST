@@ -7,6 +7,9 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "employee")
@@ -19,9 +22,17 @@ public class Employee {
     private UUID employeeId;
 
     private String employeeCode;
+    
+    @NotBlank
     private String employeeName;
+    
+    @Email
     private String email;
+    
+    @NotBlank
     private String phoneNumber;
+    
+    @NotNull
     private LocalDate joiningDate;
 
     @ManyToOne

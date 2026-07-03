@@ -15,6 +15,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="Leave_Request")
@@ -23,15 +25,20 @@ public class LeaveRequest {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long leaveRequestId;
-	
+	 
+
     private LocalDate fromDate;
+	
+
     private LocalDate toDate;
     
+	
     private String reason;
     
     @Enumerated(EnumType.STRING)   
     private LeaveStatus status;
     
+ 
     @ManyToOne
     @JoinColumn(name="employee_id")
     private Employee employee;
