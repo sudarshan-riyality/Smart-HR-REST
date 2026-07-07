@@ -1,5 +1,5 @@
 package com.riyality.repository;
 
-public class AttendanceRepository {
+public interface AttendanceRepository {
 
 }

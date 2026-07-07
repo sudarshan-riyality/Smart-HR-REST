@@ -1,5 +1,5 @@
 package com.riyality.dto;
 
-public class employee {
+public class Attendance {
 
 }
